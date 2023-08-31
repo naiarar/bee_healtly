@@ -3,11 +3,11 @@ from dateutil.relativedelta import relativedelta
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-class Training_level(models.Model):
-    level = models.CharField(max_length=20)
+# class Training_level(models.Model):
+#     level = models.CharField(max_length=20)
 
-    def __str__(self):
-        return self.level
+#     def __str__(self):
+#         return self.level
 
 
 class User(models.Model):
@@ -16,14 +16,6 @@ class User(models.Model):
     adress = models.CharField(max_length=200,blank=False, null=False)
     date_of_birth = models.DateField()
     profile_picture = models.ImageField(upload_to='users_pictures', blank=True, null=True)
-    training_level = models.ForeignKey(Training_level, on_delete=models.DO_NOTHING, blank=True)
-
-
-    def __str__(self):
-        return self.name
-
-
-class Measurements(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='measurements')
     height = models.FloatField(blank=False, null=True)
     weight = models.FloatField(blank=False, null=True)
@@ -38,8 +30,4 @@ class Measurements(models.Model):
     
     def __str__(self):
         return self.user.name
-    
-    def imc(self):
-        height_m = self.height / 100
-        imc = self.weight / (height_m ** 2)
-        return imc
+   
